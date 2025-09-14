@@ -1,0 +1,9 @@
+.expiration-color {
+  &.red {
+    color: red;
+    font-weight: bold;
+  }
+  &.orange {
+    color: rgb(255, 111, 0);
+  }
+}

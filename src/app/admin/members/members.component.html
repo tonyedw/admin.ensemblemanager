@@ -1,0 +1,56 @@
+<h1>Members</h1>
+
+<div class="search-container">
+  <input #id placeholder="ID" (input)="searchById(id.value)" />
+  <input
+    type="text"
+    #fName
+    placeholder="First Name"
+    (input)="searchByFname(fName.value)"
+  />
+
+  <input #lName placeholder="Last Name" (input)="searchByLname(lName.value)" />
+
+  <input
+    #username
+    placeholder="Username"
+    (input)="searchByUsername(username.value)"
+  />
+
+  <input #email placeholder="Email" (input)="searchByEmail(email.value)" />
+</div>
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Username</th>
+
+    <th>Email</th>
+    <th>Accounts</th>
+  </tr>
+  <tr *ngFor="let member of filteredMembers; let i = index">
+    <td class="count">{{ i + 1 }}</td>
+    <td class="delete">
+      <div (click)="delete(member, i)">delete</div>
+    </td>
+    <td class="edit">
+      <div (click)="redirectProcess(member.id)">edit</div>
+    </td>
+    <td>{{ member.id }}</td>
+    <td>{{ member.fName }}</td>
+    <td>{{ member.lName }}</td>
+    <td>{{ member.username }}</td>
+    <td>{{ member.emails }}</td>
+    <td>
+      <ng-container *ngFor="let account of member.accounts">
+        <div>
+          <span>{{ account.member }}</span> {{ account.accountName }}
+        </div>
+      </ng-container>
+    </td>
+  </tr>
+</table>

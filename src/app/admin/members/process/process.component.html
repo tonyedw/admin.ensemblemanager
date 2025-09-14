@@ -1,0 +1,23 @@
+<h1>Edit Member</h1>
+
+<form [formGroup]="userForm" (ngSubmit)="submit()">
+  <label>First Name: <input formControlName="fName" /></label><br />
+
+  <label>Last Name: <input formControlName="lName" /></label><br />
+
+  <label>Email: <input formControlName="emails" /></label><br />
+
+  <label>Username: <input formControlName="username" /></label><br />
+
+  <label>Password: <input formControlName="password" /></label><br />
+
+  <label>Cell Phone: <input formControlName="cellPhone" /></label><br />
+
+  <label>Address: <input formControlName="address" /></label><br />
+
+  <label>City: <input formControlName="city" /></label><br />
+
+  <label>State: <input formControlName="state" /></label><br />
+
+  <button type="submit" [disabled]="userForm.invalid">Save</button>
+</form>

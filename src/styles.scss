@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse; /* Makes borders collapse into a single border */
+  width: 100%;
+
+  th,
+  td {
+    border: 1px solid black;
+    padding: 5px 3px;
+
+    &.count {
+      width: 30px;
+      text-align: center;
+    }
+
+    &.delete {
+      width: 100px;
+      text-align: center;
+
+      div {
+        background: red;
+        color: #fff;
+        width: 70px;
+        padding: 2px 0;
+        margin: 0 auto;
+        cursor: pointer;
+      }
+    }
+
+    &.edit {
+      width: 100px;
+      text-align: center;
+
+      div {
+        background: blue;
+        color: #fff;
+        width: 70px;
+        padding: 2px 0;
+        margin: 0 auto;
+        cursor: pointer;
+      }
+    }
+  }
+}

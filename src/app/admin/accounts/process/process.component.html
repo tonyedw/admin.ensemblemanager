@@ -1,0 +1,24 @@
+<h1>Edit Account</h1>
+
+<form [formGroup]="accountForm" (ngSubmit)="submit()">
+  <label>Name: <input formControlName="name" /></label><br />
+
+  <label>URL: <input formControlName="url" /></label><br />
+  <label>Owner First Name: <input formControlName="ownerFname" /></label><br />
+  <label>Owner Last Name: <input formControlName="ownerLname" /></label><br />
+  <label>Owner Email: <input formControlName="ownerEmail" /></label><br />
+  <label>Expiration: <input formControlName="expiration" /></label><br />
+
+  <input type="checkbox" formControlName="payroll" /> Payroll<br />
+  <input type="checkbox" formControlName="plot" /> Plot<br />
+  <input type="checkbox" formControlName="audition" /> Audition<br />
+
+  <br />
+  <br />
+  <input type="checkbox" formControlName="autoDraft" /> Auto Draft<br />
+  <label>Draft Day: <input formControlName="draftDay" /></label><br />
+  <br />
+  <button type="submit" [disabled]="accountForm.invalid">Save</button>
+</form>
+
+{{ accountData | json }}

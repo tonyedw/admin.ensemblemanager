@@ -1,8 +1,4 @@
-<h1>Accounts</h1>
-
-<!-- <pre>{{ accounts | json }}</pre> -->
-
-Total: ${{ total }}
+<h1>Newsletter</h1>
 
 <!-- Send Email Button -->
 <div class="email-actions" *ngIf="getSelectedAccountsCount() > 0">
@@ -21,54 +17,30 @@ Total: ${{ total }}
         title="Select All"
       />
     </th>
+
     <th></th>
-    <th></th>
-    <th></th>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Owner</th>
-    <th>Packages</th>
-    <th>Renew</th>
-    <th>Expiration</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
   </tr>
   <tr *ngFor="let account of accounts; let i = index">
     <td class="checkbox">
       <input
         type="checkbox"
-        [checked]="isAccountSelected(account.id)"
-        (change)="onAccountSelect(account.id, $event)"
+        [checked]="isAccountSelected(account)"
+        (change)="onAccountSelect(account, $event)"
       />
     </td>
     <td class="count">{{ i + 1 }}</td>
-    <td class="delete" (click)="delete(account, i)"><div>delete</div></td>
-    <td class="edit"><div (click)="redirectProcess(account.id)">edit</div></td>
-    <td>{{ account.id }}</td>
-    <td>
-      {{ account.name }}
-      <div>{{ account.url }}</div>
-    </td>
 
     <td>
-      {{ account.ownerFname }} {{ account.ownerLname }}
-      <div>{{ account.ownerEmail }}</div>
-    </td>
-
-    <td>
-      <div>Base {{ account.prices.basePrice }}</div>
-      <div>Payroll {{ account.prices.payrollPrice }}</div>
-      <div>Plot {{ account.prices.plotPrice }}</div>
+      {{ account.fName }}
     </td>
     <td>
-      <div *ngIf="account.renewType === 1">Auto Renew</div>
+      {{ account.lName }}
     </td>
     <td>
-      <div
-        class="expiration-color {{
-          expirationColor(account.expiration, account.renewType)
-        }}"
-      >
-        {{ account.expiration }}
-      </div>
+      {{ account.email }}
     </td>
   </tr>
 </table>

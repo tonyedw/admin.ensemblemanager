@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AdminAccountsHttpApiService } from './accounts.service';
+import { AdminNewsletterHttpApiService } from './newsletter.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
@@ -15,10 +15,10 @@ import { QuillModule } from 'ngx-quill';
   selector: 'app-accounts',
   standalone: true,
   imports: [CommonModule, RouterModule, ReactiveFormsModule, QuillModule],
-  templateUrl: './accounts.component.html',
-  styleUrl: './accounts.component.scss',
+  templateUrl: './newsletter.component.html',
+  styleUrl: './newsletter.component.scss',
 })
-export class AccountsComponent {
+export class NewsletterComponent {
   accounts: any[] = [];
   total = 0;
   selectedAccounts: Set<number> = new Set();
@@ -54,7 +54,7 @@ export class AccountsComponent {
   };
 
   constructor(
-    private apiService: AdminAccountsHttpApiService,
+    private apiService: AdminNewsletterHttpApiService,
     private router: Router,
     private fb: FormBuilder
   ) {
@@ -67,19 +67,19 @@ export class AccountsComponent {
   ngOnInit(): void {
     this.getAccounts();
     // Test API connectivity when component loads
-    this.testApiConnectivity();
+    // this.testApiConnectivity();
   }
 
-  testApiConnectivity(): void {
-    this.apiService.testApiConnectivity().subscribe({
-      next: (response) => {
-        console.log('API connectivity test successful:', response);
-      },
-      error: (error) => {
-        console.error('API connectivity test failed:', error);
-      },
-    });
-  }
+  // testApiConnectivity(): void {
+  //   this.apiService.testApiConnectivity().subscribe({
+  //     next: (response) => {
+  //       console.log('API connectivity test successful:', response);
+  //     },
+  //     error: (error) => {
+  //       console.error('API connectivity test failed:', error);
+  //     },
+  //   });
+  // }
 
   getAccounts(): void {
     this.apiService.getAccounts().subscribe(
@@ -106,19 +106,6 @@ export class AccountsComponent {
     this.router.navigate(['/admin/account', id]);
   }
 
-  delete(account: any, index: number): void {
-    if (confirm(`Are you sure you want to delete ${account.name}`)) {
-      this.apiService.deleteAccount(account.id).subscribe({
-        next: () => {
-          this.accounts.splice(index, 1);
-        },
-        error: (error) => {
-          console.error('Error deleting member:', error);
-        },
-      });
-    }
-  }
-
   expirationColor(date: string, renew: number): string {
     const currentDate = new Date();
     const expirationDate = new Date(date);
@@ -139,27 +126,25 @@ export class AccountsComponent {
   onSelectAll(event: any): void {
     this.selectAll = event.target.checked;
     if (this.selectAll) {
-      this.selectedAccounts = new Set(
-        this.accounts.map((account) => account.id)
-      );
+      this.selectedAccounts = new Set(this.accounts.map((account) => account));
     } else {
       this.selectedAccounts.clear();
     }
   }
 
-  onAccountSelect(accountId: number, event: any): void {
+  onAccountSelect(account: any, event: any): void {
     if (event.target.checked) {
-      this.selectedAccounts.add(accountId);
+      this.selectedAccounts.add(account);
     } else {
-      this.selectedAccounts.delete(accountId);
+      this.selectedAccounts.delete(account);
     }
 
     // Update select all checkbox state
     this.selectAll = this.selectedAccounts.size === this.accounts.length;
   }
 
-  isAccountSelected(accountId: number): boolean {
-    return this.selectedAccounts.has(accountId);
+  isAccountSelected(account: any): boolean {
+    return this.selectedAccounts.has(account);
   }
 
   // Email composer functionality
@@ -207,21 +192,13 @@ export class AccountsComponent {
       return;
     }
 
-    console.log(
-      'Starting image upload:',
-      file.name,
-      'Size:',
-      file.size,
-      'Type:',
-      file.type
-    );
-
     this.isUploading = true;
     const formData = new FormData();
     formData.append('image', file);
 
     this.apiService.uploadEmailImage(formData).subscribe({
       next: (response: any) => {
+        console.log('Upload successful:', response);
         this.isUploading = false;
         const imageUrl = `https://api.ensemblemanager.com/api/management/email/images/${response.filename}`;
         this.insertImageIntoEditor(imageUrl);
@@ -280,6 +257,7 @@ export class AccountsComponent {
 
     this.apiService.sendEmailToAccounts(emailData).subscribe({
       next: (response: any) => {
+        console.log(response);
         alert('Emails sent successfully!');
         this.closeEmailComposer();
         this.selectedAccounts.clear();

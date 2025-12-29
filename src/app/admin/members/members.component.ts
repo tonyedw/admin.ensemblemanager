@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdminMembersHttpApiService } from './members.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   templateUrl: './members.component.html',
   styleUrl: './members.component.scss',
 })
-export class MembersComponent {
+export class MembersComponent implements OnInit {
   members: any[] = [];
   filteredMembers: any[] = [];
 
@@ -45,6 +45,7 @@ export class MembersComponent {
   }
 
   getMembers(): void {
+    console.log(' getMembers()');
     this.apiService.getMembers().subscribe(
       (data) => {
         this.members = data;

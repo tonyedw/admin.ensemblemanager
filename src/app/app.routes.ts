@@ -1,26 +1,37 @@
-// import { Routes } from '@angular/router';
-
-// export const routes: Routes = [
-//   {
-//     path: 'admin',
-//     loadChildren: () =>
-//       import('./admin/admin.module').then((m) => m.AdminModule),
-//   },
-// ];
-
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () =>
+      import('./blank/blank.component').then((c) => c.BlankComponent),
+    pathMatch: 'full',
+  },
   {
     path: 'admin',
     loadComponent: () =>
       import('./admin/admin.component').then((c) => c.AdminComponent),
     children: [
       {
+        path: '',
+        loadComponent: () =>
+          import('./admin/blank-admin/blank-admin.component').then(
+            (c) => c.BlankAdminComponent
+          ),
+        pathMatch: 'full',
+      },
+      {
         path: 'accounts',
         loadComponent: () =>
           import('./admin/accounts/accounts.component').then(
             (c) => c.AccountsComponent
+          ),
+      },
+      {
+        path: 'newsletter',
+        loadComponent: () =>
+          import('./admin/newsletter/newsletter.component').then(
+            (c) => c.NewsletterComponent
           ),
       },
       {
@@ -36,7 +47,7 @@ export const routes: Routes = [
           import('./admin/email/email.component').then((c) => c.EmailComponent),
       },
       {
-        path: 'report',
+        path: 'reports',
         loadComponent: () =>
           import('./admin/reports/reports.component').then(
             (c) => c.ReportsComponent
@@ -57,5 +68,10 @@ export const routes: Routes = [
           ),
       },
     ],
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./blank/blank.component').then((c) => c.BlankComponent),
   },
 ];

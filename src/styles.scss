@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Import Quill styles */
+@import "quill/dist/quill.snow.css";
+@import "quill/dist/quill.bubble.css";
+
 html,
 body {
   margin: 0;
@@ -47,4 +52,42 @@ table {
       }
     }
   }
+}
+
+/* Quill Editor Customization */
+.email-editor .ql-editor {
+  min-height: 250px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.email-editor .ql-editor.ql-blank::before {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.email-editor .ql-toolbar {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f8f9fa;
+}
+
+.email-editor .ql-toolbar .ql-formats {
+  margin-right: 15px;
+}
+
+.email-editor .ql-toolbar button:hover {
+  background-color: #e9ecef;
+}
+
+.email-editor .ql-toolbar button.ql-active {
+  background-color: #007bff;
+  color: white;
+}
+
+.email-editor .ql-container {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }

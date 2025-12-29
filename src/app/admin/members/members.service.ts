@@ -12,6 +12,7 @@ export class AdminMembersHttpApiService {
 
   getMembers(): Observable<any> {
     const API_URL = `https://${this.apiURL}/api/management/members/get.list.php`;
+
     return this.http.get(API_URL);
   }
 

@@ -6,42 +6,14 @@ import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class AdminAccountsHttpApiService {
+export class AdminNewsletterHttpApiService {
   apiURL = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
   getAccounts(): Observable<any> {
-    const API_URL = `https://${this.apiURL}/api/management/accounts/get.list.php`;
+    const API_URL = `https://${this.apiURL}/api/management/email/newsletter.php`;
 
     return this.http.get(API_URL);
-  }
-
-  getAccount(id: string): Observable<any> {
-    const API_URL = `https://${this.apiURL}/api/management/accounts/get.php?id=${id}`;
-
-    return this.http.get(API_URL);
-  }
-
-  deleteAccount(id: number): Observable<any> {
-    const API_URL = `https://${this.apiURL}/api/management/accounts/delete.php?id=${id}`;
-
-    return this.http.get(API_URL);
-  }
-
-  updateAccount(data: any, id: string): Observable<any> {
-    const API_URL = `https://${this.apiURL}/api/management/accounts/process.php?id=${id}`;
-
-    return this.http
-      .post<any>(API_URL, data, {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-        }),
-      })
-      .pipe(
-        catchError((err: any) => {
-          return JSON.parse(err.message);
-        })
-      );
   }
 
   uploadEmailImage(formData: FormData): Observable<any> {
@@ -66,18 +38,18 @@ export class AdminAccountsHttpApiService {
     );
   }
 
-  // Test method to check API connectivity
-  testApiConnectivity(): Observable<any> {
-    const API_URL = `https://${this.apiURL}/api/management/accounts/get.list.php`;
-    console.log('Testing API connectivity to:', API_URL);
+  // // Test method to check API connectivity
+  // testApiConnectivity(): Observable<any> {
+  //   const API_URL = `https://${this.apiURL}/api/management/accounts/get.list.php`;
+  //   console.log('Testing API connectivity to:', API_URL);
 
-    return this.http.get(API_URL).pipe(
-      catchError((err: any) => {
-        console.error('API connectivity test failed:', err);
-        throw err;
-      })
-    );
-  }
+  //   return this.http.get(API_URL).pipe(
+  //     catchError((err: any) => {
+  //       console.error('API connectivity test failed:', err);
+  //       throw err;
+  //     })
+  //   );
+  // }
 
   sendEmailToAccounts(emailData: any): Observable<any> {
     const API_URL = `https://${this.apiURL}/api/management/email/send.php`;

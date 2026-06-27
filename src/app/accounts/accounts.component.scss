@@ -1,0 +1,19 @@
+.accounts-nav {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+
+  a {
+    color: #333;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+
+    &.active {
+      background: #667eea;
+      color: white;
+    }
+  }
+}

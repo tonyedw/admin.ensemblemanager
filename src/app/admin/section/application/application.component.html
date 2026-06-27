@@ -1,0 +1,90 @@
+<div *ngIf="!isLoading">
+  <h2>Application</h2>
+
+  <div class="actions" *ngIf="applicationData && !isEditMode">
+    <button type="button" (click)="enableEdit()">Edit</button>
+  </div>
+
+  <form [formGroup]="applicationForm" (ngSubmit)="submit()">
+    <div class="field">
+      <label>First Name</label>
+      <input formControlName="firstName" type="text" />
+      <span class="error" *ngIf="getFieldError('firstName')">
+        {{ getFieldError('firstName') }}
+      </span>
+    </div>
+
+    <div class="field">
+      <label>Last Name</label>
+      <input formControlName="lastName" type="text" />
+      <span class="error" *ngIf="getFieldError('lastName')">
+        {{ getFieldError('lastName') }}
+      </span>
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input formControlName="email" type="email" />
+      <span class="error" *ngIf="getFieldError('email')">
+        {{ getFieldError('email') }}
+      </span>
+    </div>
+
+    <div class="field">
+      <label>Phone</label>
+      <input formControlName="phone" type="tel" />
+    </div>
+
+    <div class="field">
+      <label>Instrument</label>
+      <input formControlName="instrument" type="text" />
+      <span class="error" *ngIf="getFieldError('instrument')">
+        {{ getFieldError('instrument') }}
+      </span>
+    </div>
+
+    <div class="field">
+      <label>Experience</label>
+      <textarea formControlName="experience" rows="4"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Notes</label>
+      <textarea formControlName="notes" rows="4"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Status</label>
+      <select formControlName="status">
+        <option value="pending">Pending</option>
+        <option value="reviewing">Reviewing</option>
+        <option value="accepted">Accepted</option>
+        <option value="rejected">Rejected</option>
+      </select>
+    </div>
+
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+
+    <div class="form-actions" *ngIf="isEditMode">
+      <button type="submit" [disabled]="applicationForm.invalid || isSaving">
+        {{ isSaving ? 'Saving...' : 'Save' }}
+      </button>
+      <button type="button" (click)="cancelEdit()">Cancel</button>
+    </div>
+  </form>
+
+  <hr />
+
+  <h3>Audition Files</h3>
+  <app-files
+    [applicationId]="applicationId"
+    [disabled]="!isEditMode && !!applicationData"
+  ></app-files>
+
+  <hr />
+
+  <app-recommendation [applicationId]="applicationId"></app-recommendation>
+</div>
+
+<p *ngIf="isLoading">Loading...</p>

@@ -1,0 +1,57 @@
+<div class="file-upload">
+  <div class="file-type-selection">
+    <label>
+      <input
+        type="radio"
+        name="fileType"
+        value="audio"
+        [(ngModel)]="fileType"
+        [disabled]="disabled"
+      />
+      Audio
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="fileType"
+        value="video"
+        [(ngModel)]="fileType"
+        [disabled]="disabled"
+      />
+      Video
+    </label>
+    <button
+      type="button"
+      (click)="clearSelection()"
+      [disabled]="disabled || !fileType"
+    >
+      Clear
+    </button>
+  </div>
+
+  <div class="file-input-section">
+    <input
+      type="file"
+      [accept]="acceptedTypes"
+      [disabled]="disabled || !fileType || isUploading"
+      (change)="onFileSelected($event)"
+    />
+    <button
+      type="button"
+      [disabled]="isUploadDisabled"
+      (click)="uploadFile()"
+    >
+      {{ isUploading ? 'Uploading...' : 'Upload' }}
+    </button>
+  </div>
+
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+
+  <ul *ngIf="uploadedFiles.length > 0">
+    <li *ngFor="let file of uploadedFiles">
+      <a [href]="file.url" target="_blank">{{ file.name }}</a>
+      ({{ file.type }})
+    </li>
+  </ul>
+</div>

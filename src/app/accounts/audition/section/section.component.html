@@ -1,0 +1,81 @@
+<div class="section-container">
+  <h2>Sections</h2>
+
+  <form [formGroup]="sectionForm" (ngSubmit)="submit()" novalidate class="section-form">
+    <h3>{{ isEditMode ? 'Edit Section' : 'Add Section' }}</h3>
+
+    <div class="form-group">
+      <label for="name">Section Name <span class="required">*</span></label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="e.g. Strings, Brass, Woodwinds"
+      />
+      <div class="field-error" *ngIf="isFieldInvalid('name')">
+        Section name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        rows="3"
+        placeholder="Optional description"
+      ></textarea>
+    </div>
+
+    <div class="submit-error" *ngIf="submitError">
+      <p>{{ submitError }}</p>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Saving...' : (isEditMode ? 'Update' : 'Add Section') }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        *ngIf="isEditMode"
+        (click)="cancelEdit()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+
+  <div class="loading" *ngIf="isLoading">
+    <p>Loading sections...</p>
+  </div>
+
+  <div class="load-error" *ngIf="loadError">
+    <p>{{ loadError }}</p>
+  </div>
+
+  <table *ngIf="!isLoading && sections.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let section of sections; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ section.name }}</td>
+        <td>{{ section.description }}</td>
+        <td><button type="button" class="btn-link" (click)="edit(section)">Edit</button></td>
+        <td><button type="button" class="btn-link danger" (click)="delete(section)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!isLoading && sections.length === 0 && !loadError" class="no-results">
+    No sections found. Add one above.
+  </p>
+</div>

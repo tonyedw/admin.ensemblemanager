@@ -8,6 +8,57 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'accounts',
+    loadComponent: () =>
+      import('./accounts/accounts.component').then((c) => c.AccountsComponent),
+    children: [
+      {
+        path: 'audition',
+        loadComponent: () =>
+          import('./accounts/audition/audition.component').then(
+            (c) => c.AuditionComponent
+          ),
+        children: [
+          {
+            path: 'files',
+            loadComponent: () =>
+              import('./accounts/audition/audition-files/files.component').then(
+                (c) => c.FilesComponent
+              ),
+          },
+          {
+            path: 'recommendations',
+            loadComponent: () =>
+              import(
+                './accounts/audition/recommendations/recommendation.component'
+              ).then((c) => c.RecommendationComponent),
+          },
+          {
+            path: 'application',
+            loadComponent: () =>
+              import(
+                './accounts/audition/application/application.component'
+              ).then((c) => c.ApplicationComponent),
+          },
+          {
+            path: 'roster',
+            loadComponent: () =>
+              import('./accounts/audition/roster/roster.component').then(
+                (c) => c.RosterComponent
+              ),
+          },
+          {
+            path: 'section',
+            loadComponent: () =>
+              import('./accounts/audition/section/section.component').then(
+                (c) => c.SectionComponent
+              ),
+          },
+        ],
+      },
+    ],
+  },
+  {
     path: 'admin',
     loadComponent: () =>
       import('./admin/admin.component').then((c) => c.AdminComponent),

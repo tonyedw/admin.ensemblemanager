@@ -1,0 +1,148 @@
+<div class="application-container">
+  <h2>{{ isEditMode ? 'Edit Application' : 'Audition Application' }}</h2>
+
+  <div class="loading" *ngIf="isLoading">
+    <p>Loading application...</p>
+  </div>
+
+  <div class="success-message" *ngIf="submitSuccess && !isEditMode">
+    <p>Your application has been submitted successfully!</p>
+  </div>
+
+  <div class="success-message" *ngIf="submitSuccess && isEditMode">
+    <p>Your application has been updated successfully!</p>
+  </div>
+
+  <form
+    [formGroup]="applicationForm"
+    (ngSubmit)="submit()"
+    *ngIf="!isLoading && !(submitSuccess && !isEditMode)"
+    novalidate
+  >
+    <div class="form-row">
+      <div class="form-group">
+        <label for="firstName">First Name <span class="required">*</span></label>
+        <input
+          id="firstName"
+          type="text"
+          formControlName="firstName"
+          placeholder="First name"
+        />
+        <div class="field-error" *ngIf="isFieldInvalid('firstName')">
+          {{ getFieldError('firstName') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name <span class="required">*</span></label>
+        <input
+          id="lastName"
+          type="text"
+          formControlName="lastName"
+          placeholder="Last name"
+        />
+        <div class="field-error" *ngIf="isFieldInvalid('lastName')">
+          {{ getFieldError('lastName') }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email">Email <span class="required">*</span></label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="your@email.com"
+        />
+        <div class="field-error" *ngIf="isFieldInvalid('email')">
+          {{ getFieldError('email') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input
+          id="phone"
+          type="tel"
+          formControlName="phone"
+          placeholder="(optional)"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="instrument">Instrument <span class="required">*</span></label>
+        <input
+          id="instrument"
+          type="text"
+          formControlName="instrument"
+          placeholder="e.g. Violin, Trumpet"
+        />
+        <div class="field-error" *ngIf="isFieldInvalid('instrument')">
+          {{ getFieldError('instrument') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="section">Section <span class="required">*</span></label>
+        <input
+          id="section"
+          type="text"
+          formControlName="section"
+          placeholder="e.g. Strings, Brass"
+        />
+        <div class="field-error" *ngIf="isFieldInvalid('section')">
+          {{ getFieldError('section') }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="experience">Performance Experience <span class="required">*</span></label>
+      <textarea
+        id="experience"
+        formControlName="experience"
+        rows="5"
+        placeholder="Describe your relevant performance experience"
+      ></textarea>
+      <div class="field-error" *ngIf="isFieldInvalid('experience')">
+        {{ getFieldError('experience') }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="notes">Additional Notes</label>
+      <textarea
+        id="notes"
+        formControlName="notes"
+        rows="3"
+        placeholder="Any additional information (optional)"
+      ></textarea>
+    </div>
+
+    <div class="submit-error" *ngIf="submitError">
+      <p>{{ submitError }}</p>
+    </div>
+
+    <div class="form-actions">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="isSubmitting"
+      >
+        {{ isSubmitting ? 'Saving...' : (isEditMode ? 'Update Application' : 'Submit Application') }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        *ngIf="isEditMode"
+        (click)="cancelEdit()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

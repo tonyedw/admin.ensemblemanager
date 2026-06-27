@@ -1,0 +1,71 @@
+<div class="files-container">
+  <h2>Audition Files</h2>
+
+  <div class="media-type-selection">
+    <p>Select the type of file you want to upload:</p>
+    <div class="radio-group">
+      <button
+        type="button"
+        class="radio-btn"
+        [class.selected]="mediaType === 'audio'"
+        (click)="selectMediaType('audio')"
+        [attr.aria-pressed]="mediaType === 'audio'"
+      >
+        <span class="radio-indicator"></span>
+        Audio
+      </button>
+      <button
+        type="button"
+        class="radio-btn"
+        [class.selected]="mediaType === 'video'"
+        (click)="selectMediaType('video')"
+        [attr.aria-pressed]="mediaType === 'video'"
+      >
+        <span class="radio-indicator"></span>
+        Video
+      </button>
+    </div>
+    <p class="hint" *ngIf="mediaType">
+      Click the selected button again to deselect.
+    </p>
+  </div>
+
+  <div class="file-upload-section" *ngIf="mediaType">
+    <label class="file-label">
+      Choose {{ mediaType === 'audio' ? 'an audio' : 'a video' }} file:
+      <input
+        type="file"
+        [accept]="acceptTypes"
+        [disabled]="isUploading"
+        (change)="onFileSelected($event)"
+        class="file-input"
+      />
+    </label>
+
+    <div class="selected-file" *ngIf="selectedFile">
+      <span class="file-name">{{ selectedFile.name }}</span>
+      <span class="file-size">({{ (selectedFile.size / 1024 / 1024).toFixed(2) }} MB)</span>
+    </div>
+
+    <div class="actions" *ngIf="selectedFile && !isUploading">
+      <button type="button" class="btn btn-primary" (click)="upload()">
+        Upload
+      </button>
+    </div>
+
+    <div class="upload-progress" *ngIf="isUploading">
+      <p>Uploading...</p>
+      <button type="button" class="btn btn-secondary" (click)="cancelUpload()">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <div class="upload-success" *ngIf="uploadSuccess">
+    <p>File uploaded successfully!</p>
+  </div>
+
+  <div class="upload-error" *ngIf="uploadError">
+    <p>{{ uploadError }}</p>
+  </div>
+</div>

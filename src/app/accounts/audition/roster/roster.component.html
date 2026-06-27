@@ -1,0 +1,59 @@
+<div class="roster-container">
+  <h2>Ensemble Roster</h2>
+
+  <div class="filters">
+    <input
+      type="text"
+      #name
+      placeholder="Search by name"
+      (input)="filterByName(name.value)"
+    />
+    <input
+      type="text"
+      #section
+      placeholder="Search by section"
+      (input)="filterBySection(section.value)"
+    />
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <p>Loading roster...</p>
+  </div>
+
+  <div class="load-error" *ngIf="loadError">
+    <p>{{ loadError }}</p>
+  </div>
+
+  <table *ngIf="!isLoading && !loadError">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Instrument</th>
+        <th>Section</th>
+        <th>Repertoire</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let member of filteredRoster; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ member.firstName }}</td>
+        <td>{{ member.lastName }}</td>
+        <td>{{ member.instrument }}</td>
+        <td>{{ member.section }}</td>
+        <td>
+          <ng-container *ngIf="member.repertoire && member.repertoire.length > 0">
+            <div *ngFor="let piece of member.repertoire">
+              {{ piece.title }} <span *ngIf="piece.composer">- {{ piece.composer }}</span>
+            </div>
+          </ng-container>
+          <span *ngIf="!member.repertoire || member.repertoire.length === 0" class="none">—</span>
+        </td>
+      </tr>
+      <tr *ngIf="filteredRoster.length === 0 && !isLoading">
+        <td colspan="6" class="no-results">No roster members found.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

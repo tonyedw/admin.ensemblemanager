@@ -1,0 +1,24 @@
+<h1>Sections</h1>
+
+<table *ngIf="sections.length > 0">
+  <tr>
+    <th>Name</th>
+    <th>Applications</th>
+    <th>Roster</th>
+  </tr>
+  <tr *ngFor="let section of sections">
+    <td>{{ section.name }}</td>
+    <td>
+      <button type="button" (click)="navigateToApplications(section.id)">
+        Applications
+      </button>
+    </td>
+    <td>
+      <button type="button" (click)="navigateToRoster(section.id)">
+        Roster
+      </button>
+    </td>
+  </tr>
+</table>
+
+<p *ngIf="sections.length === 0">No sections found.</p>

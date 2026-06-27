@@ -67,6 +67,34 @@ export const routes: Routes = [
             (c) => c.AccountProcessComponent
           ),
       },
+      {
+        path: 'account/:accountId/sections',
+        loadComponent: () =>
+          import('./admin/section/section.component').then(
+            (c) => c.SectionComponent
+          ),
+      },
+      {
+        path: 'section/:sectionId/applications',
+        loadComponent: () =>
+          import('./admin/section/application/application.component').then(
+            (c) => c.ApplicationComponent
+          ),
+      },
+      {
+        path: 'section/:sectionId/application/:id',
+        loadComponent: () =>
+          import('./admin/section/application/application.component').then(
+            (c) => c.ApplicationComponent
+          ),
+      },
+      {
+        path: 'section/:sectionId/roster',
+        loadComponent: () =>
+          import('./admin/section/roster/roster.component').then(
+            (c) => c.RosterComponent
+          ),
+      },
     ],
   },
   {

@@ -1,0 +1,54 @@
+<div class="recommendation" *ngIf="!isLoading">
+  <h3>Letter of Recommendation</h3>
+
+  <form [formGroup]="recommendationForm" (ngSubmit)="submit()">
+    <div class="field">
+      <label>Recommender Name</label>
+      <input formControlName="recommenderName" type="text" />
+      <span class="error" *ngIf="getFieldError('recommenderName')">
+        {{ getFieldError('recommenderName') }}
+      </span>
+    </div>
+
+    <div class="field">
+      <label>Recommender Email</label>
+      <input formControlName="recommenderEmail" type="email" />
+      <span class="error" *ngIf="getFieldError('recommenderEmail')">
+        {{ getFieldError('recommenderEmail') }}
+      </span>
+    </div>
+
+    <div class="field">
+      <label>Recommender Title</label>
+      <input formControlName="recommenderTitle" type="text" />
+      <span class="error" *ngIf="getFieldError('recommenderTitle')">
+        {{ getFieldError('recommenderTitle') }}
+      </span>
+    </div>
+
+    <div class="field">
+      <label>Relationship to Applicant</label>
+      <input formControlName="relationship" type="text" />
+      <span class="error" *ngIf="getFieldError('relationship')">
+        {{ getFieldError('relationship') }}
+      </span>
+    </div>
+
+    <div class="field">
+      <label>Recommendation Letter</label>
+      <textarea formControlName="content" rows="10"></textarea>
+      <span class="error" *ngIf="getFieldError('content')">
+        {{ getFieldError('content') }}
+      </span>
+    </div>
+
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+
+    <button type="submit" [disabled]="recommendationForm.invalid || isSaving">
+      {{ isSaving ? 'Saving...' : 'Save Recommendation' }}
+    </button>
+  </form>
+</div>
+
+<p *ngIf="isLoading">Loading...</p>

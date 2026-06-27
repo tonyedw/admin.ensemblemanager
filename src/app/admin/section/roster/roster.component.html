@@ -1,0 +1,29 @@
+<div *ngIf="!isLoading">
+  <h2>Roster</h2>
+
+  <table *ngIf="roster.length > 0">
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Instrument</th>
+      <th>Position</th>
+    </tr>
+    <tr *ngFor="let member of roster; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ member.firstName }} {{ member.lastName }}</td>
+      <td>{{ member.instrument }}</td>
+      <td>{{ member.position }}</td>
+    </tr>
+  </table>
+
+  <p *ngIf="roster.length === 0">No roster members found.</p>
+
+  <h3 *ngIf="repertoire.length > 0">Repertoire</h3>
+  <ul *ngIf="repertoire.length > 0">
+    <li *ngFor="let piece of repertoire">
+      {{ piece.title }} <span *ngIf="piece.composer">— {{ piece.composer }}</span>
+    </li>
+  </ul>
+</div>
+
+<p *ngIf="isLoading">Loading...</p>

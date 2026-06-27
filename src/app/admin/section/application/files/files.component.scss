@@ -1,0 +1,28 @@
+.file-upload {
+  .file-type-selection {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+  }
+
+  .file-input-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .error {
+    color: red;
+  }
+
+  .success {
+    color: green;
+  }
+}
